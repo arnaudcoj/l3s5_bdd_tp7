@@ -46,3 +46,7 @@ CREATE OR REPLACE FUNCTION coutAppelsOperations(d date) RETURNS INT AS $$
             UNION 
             SELECT cout FROM Operation WHERE Date=d) AS couts;
     END; $$ LANGUAGE PLPGSQL;
+
+--E1Q6
+
+CREATE OR REPLACE FUNCTION evaluation(op integer) RETURNS BOOLEAN AS $$

@@ -50,3 +50,15 @@ CREATE OR REPLACE FUNCTION coutAppelsOperations(d date) RETURNS INT AS $$
 --E1Q6
 
 CREATE OR REPLACE FUNCTION evaluation(op integer) RETURNS BOOLEAN AS $$
+    DECLARE
+        tot_eval integer;
+        eval_pos integer;
+    BEGIN
+        tot_eval := COUNT(resultat) FROM Appel WHERE codoper=op;
+        eval_pos := COUNT(resultat) FROM Appel WHERE codoper=op AND resultat;
+        IF eval_pos != 0 AND tot_eval != 0 THEN
+            RETURN eval_pos / tot_eval > 0.5;
+        ELSE
+            RETURN false;
+        END IF;
+    END; $$ LANGUAGE PLPGSQL;

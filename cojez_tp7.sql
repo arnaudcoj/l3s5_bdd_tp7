@@ -21,12 +21,24 @@ SELECT * FROM Appel;
 
 --E1Q2
 
---CREATE OR REPLACE FUNCTION RemplirOperations() RETURNS VOID AS $$
---    DECLARE 
-        
-        --Q2 modifier operations pas problemes
+CREATE OR REPLACE FUNCTION RemplirOperations() RETURNS VOID AS $$
+    DECLARE
+        demenagement integer;
+        cout_max integer;
+    BEGIN
+        cout_max := MAX(cout) FROM Operation;
+        FOR demenagement IN SELECT codappel FROM Appel WHERE codprob IN
+                (SELECT codprob FROM Probleme WHERE description='demenagement de ligne')
+        LOOP
+            UPDATE Operation 
+                SET duree=3, cout=cout_max, description='demenagement de ligne'
+                    WHERE codappel=demenagement;
+        END LOOP;
+    END; $$ LANGUAGE PLPGSQL;
 
 --E1Q3
+
+
 
 --E1Q4
 
